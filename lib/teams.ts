@@ -70,7 +70,7 @@ const ROWS: Row[] = [
   ["toronto", "al-east", "Toronto", "Blue Jays", "TORONTO", "True Royal", "Royal"],
   // AL Central
   ["chicago-black", "al-central", "Chicago", "White Sox", "CHICAGO", "Black", "Black"],
-  ["cleveland", "al-central", "Cleveland", "Guardians", "CLEVELAND", "Red", "Red"],
+  ["cleveland", "al-central", "Cleveland", "Guardians", "CLEVELAND", "Navy", "Navy"],
   ["detroit", "al-central", "Detroit", "Tigers", "DETROIT", "Orange", "Orange"],
   ["kansas-city", "al-central", "Kansas City", "Royals", "KANSAS CITY", "True Royal", "Royal"],
   ["minnesota", "al-central", "Minnesota", "Twins", "MINNESOTA", "Navy", "Navy"],
