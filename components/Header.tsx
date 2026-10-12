@@ -6,6 +6,7 @@ import { useCart } from "./CartProvider";
 
 const LINKS = [
   { href: "/shop", label: "Tees" },
+  { href: "/shop?league=nfl", label: "Football" },
   { href: "/shop?style=hoodie", label: "Hoodies" },
 ];
 
