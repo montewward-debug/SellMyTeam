@@ -71,7 +71,7 @@ const ROWS: Row[] = [
   // AL Central
   ["chicago-black", "al-central", "Chicago", "White Sox", "CHICAGO", "Black", "Black"],
   ["cleveland", "al-central", "Cleveland", "Guardians", "CLEVELAND", "Navy", "Navy"],
-  ["detroit", "al-central", "Detroit", "Tigers", "DETROIT", "Orange", "Orange"],
+  ["detroit", "al-central", "Detroit", "Tigers", "DETROIT", "Navy", "Navy"],
   ["kansas-city", "al-central", "Kansas City", "Royals", "KANSAS CITY", "True Royal", "Royal"],
   ["minnesota", "al-central", "Minnesota", "Twins", "MINNESOTA", "Navy", "Navy"],
   // AL West
