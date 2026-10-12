@@ -12,7 +12,7 @@ const LAYOUT: Record<"tee" | "hoodie", { w: number; h: number; artWidth: number;
   hoodie: { w: 2100, h: 2100, artWidth: 2010, capTop: 560 },
 };
 
-export async function printFile(blank: "tee" | "hoodie", city?: string): Promise<Response> {
+export async function printFile(blank: "tee" | "hoodie", city?: string, color?: string): Promise<Response> {
   const { w, h, artWidth, capTop } = LAYOUT[blank];
   return new ImageResponse(
     (
@@ -26,7 +26,7 @@ export async function printFile(blank: "tee" | "hoodie", city?: string): Promise
           paddingTop: capTop - CAP_INSET * wordSize(artWidth),
         }}
       >
-        <PrintArt width={artWidth} city={city} />
+        <PrintArt width={artWidth} city={city} color={color} />
       </div>
     ),
     {
