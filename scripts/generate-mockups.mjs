@@ -1,7 +1,7 @@
 // Makes Printful flat-lay photos of every product with the Mockup Generator:
 // the tee (Bella+Canvas 3001), city tee and hoodie (Gildan 18500) in each team
 // color and the Cincinnati specials, saved to public/mockups/[<style>/]<slug>.png.
-// Tee mockups render per team because the Bengals tee uses black ink.
+// Tee mockups share a render across teams in the same shirt color.
 //
 //   node --env-file=.env.local scripts/generate-mockups.mjs [style ...] [team-slug ...] [--missing] [--options]
 //
@@ -20,7 +20,7 @@ const API = "https://api.printful.com";
 const TEE = [1800, 2400];
 const front = (path, area) => () => [{ placement: "front", path, area }];
 const STYLES = {
-  tee: { product: 71, color: (t) => t.shirt, files: (slug) => [{ placement: "front", path: `api/print/${slug}.png`, area: TEE }], perTeam: true, out: "" },
+  tee: { product: 71, color: (t) => t.shirt, files: (slug) => [{ placement: "front", path: `api/print/${slug}.png`, area: TEE }], out: "" },
   // The city differs per team, so each team is rendered (no color sharing).
   city: {
     product: 71,

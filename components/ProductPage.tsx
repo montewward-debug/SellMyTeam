@@ -73,7 +73,7 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
   const related = [...sameCity, ...TEAMS.filter((t) => t.division === team.division && t.market !== team.market)].slice(0, 4);
   if (!stylesFor(team).includes(style)) notFound();
   const noun = STYLE[style].label.toLowerCase();
-  const printColor = team.slug === "nfl-cincinnati" && style === "tee" ? "black" : PRINT_COLOR[style];
+  const printColor = PRINT_COLOR[style];
   const printInk = printColor === "black" ? "#000000" : STYLE[style].ink;
 
   return (
@@ -112,7 +112,7 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
               <summary>Why SELL</summary>
               <div className="content">
                 Modeled on the shirt Oakland fans wore to the 2023 reverse boycott.{" "}
-                {WHY[style] ?? (team.slug === "nfl-cincinnati" && style === "tee" ? "One word in black on your team\u2019s color." : "One word in white on your team\u2019s color.")} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
+                {WHY[style] ?? "One word in white on your team\u2019s color."} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
                 seen from the owner&rsquo;s suite. <Link href="/story" style={{ textDecoration: "underline" }}>Read the story.</Link>
               </div>
             </details>
