@@ -73,7 +73,7 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
   const related = [...sameCity, ...TEAMS.filter((t) => t.division === team.division && t.market !== team.market)].slice(0, 4);
   if (!stylesFor(team).includes(style)) notFound();
   const noun = STYLE[style].label.toLowerCase();
-  const printColor = PRINT_COLOR[style];
+  const printColor = team.slug === "nfl-cincinnati" && style === "tee" ? "black" : PRINT_COLOR[style];
   const printInk = printColor === "black" ? "#000000" : STYLE[style].ink;
 
   return (

@@ -20,7 +20,7 @@ const API = "https://api.printful.com";
 const TEE = [1800, 2400];
 const front = (path, area) => () => [{ placement: "front", path, area }];
 const STYLES = {
-  tee: { product: 71, color: (t) => t.shirt, files: (slug) => [{ placement: "front", path: `api/print/${slug}.png`, area: TEE }], out: "" },
+  tee: { product: 71, color: (t) => t.shirt, files: (slug) => [{ placement: "front", path: slug === "nfl-cincinnati" ? "print/bengals-impact-black.png" : `api/print/${slug}.png`, area: TEE }], perTeam: true, out: "" },
   // The city differs per team, so each team is rendered (no color sharing).
   city: {
     product: 71,
