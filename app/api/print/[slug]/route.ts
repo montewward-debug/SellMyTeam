@@ -10,7 +10,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   if (!team) return new Response("Not found", { status: 404 });
   if (slug === "nfl-cincinnati") {
     const png = await readFile(join(process.cwd(), "public", "print", "bengals-impact-black.png"));
-    return new Response(png, { headers: { "Content-Type": "image/png", "Cache-Control": "public, max-age=31536000, immutable" } });
+    return new Response(png, { headers: { "Content-Type": "image/png", "Cache-Control": "public, max-age=0, must-revalidate" } });
   }
   return printFile("tee");
 }
