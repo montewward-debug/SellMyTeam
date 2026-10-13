@@ -6,5 +6,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   const slug = (await params).slug.replace(/\.png$/, "");
   const team = getTeam(slug);
   if (!team) return new Response("Not found", { status: 404 });
-  return printFile("tee", undefined, slug === "nfl-cincinnati" ? "#000000" : undefined);
+  const ink = slug === "nfl-cincinnati" ? "#000000" : slug === "nfl-cleveland" ? "#FF3C00" : undefined;
+  return printFile("tee", undefined, ink);
 }
