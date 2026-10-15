@@ -160,4 +160,83 @@ const ROWS: Row[] = [
   ["nfl-los-angeles-light-blue", "afc-west", "Los Angeles", "Chargers Bolts", "LOS ANGELES", "Heather Columbia Blue", "Carolina Blue"],
   // NFC East
   ["nfl-dallas", "nfc-east", "Dallas", "Cowboys", "DALLAS", "Navy", "Navy"],
-  ["nfl-new-yor
+  ["nfl-new-york-blue", "nfc-east", "New York", "Giants", "NEW YORK", "True Royal", "Royal"],
+  ["nfl-philadelphia", "nfc-east", "Philadelphia", "Eagles", "PHILADELPHIA", "Forest", "Forest Green"],
+  ["nfl-washington", "nfc-east", "Washington", "Commanders", "WASHINGTON", "Maroon", "Maroon"],
+  // NFC North
+  ["nfl-chicago", "nfc-north", "Chicago", "Bears", "CHICAGO", "Navy", "Navy"],
+  ["nfl-detroit", "nfc-north", "Detroit", "Lions", "DETROIT", "Aqua", "Royal"],
+  ["nfl-green-bay", "nfc-north", "Green Bay", "Packers", "GREEN BAY", "Forest", "Forest Green"],
+  ["nfl-minnesota", "nfc-north", "Minnesota", "Vikings", "MINNESOTA", "Team Purple", "Purple"],
+  // NFC South
+  ["nfl-atlanta", "nfc-south", "Atlanta", "Falcons", "ATLANTA", "Red", "Red"],
+  ["nfl-carolina", "nfc-south", "Carolina", "Panthers", "CAROLINA", "Aqua", "Carolina Blue"],
+  ["nfl-new-orleans", "nfc-south", "New Orleans", "Saints", "NEW ORLEANS", "Tan", "Sand"],
+  ["nfl-tampa-bay", "nfc-south", "Tampa Bay", "Buccaneers Bucs", "TAMPA BAY", "Red", "Red"],
+  // NFC West
+  ["nfl-arizona", "nfc-west", "Arizona", "Cardinals", "ARIZONA", "Cardinal", "Maroon"],
+  ["nfl-los-angeles-blue", "nfc-west", "Los Angeles", "Rams", "LOS ANGELES", "True Royal", "Royal"],
+  ["nfl-san-francisco", "nfc-west", "San Francisco", "49ers Niners", "SAN FRANCISCO", "Red", "Red"],
+  ["nfl-seattle", "nfc-west", "Seattle", "Seahawks", "SEATTLE", "Navy", "Navy"],
+];
+
+export const TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, shirt, hoodie, edition]) => ({
+  slug,
+  league: DIVISIONS.find((d) => d.id === division)!.league,
+  division,
+  market,
+  nickname,
+  city,
+  shirt,
+  hoodie,
+  nepo: NEPO.has(slug),
+  edition,
+}));
+
+export const FEATURED_SLUG = "oakland";
+
+// Addresses from before teams in the same city were named by color; old links
+// redirect (next.config.ts) and saved bags still resolve.
+export const OLD_SLUGS: Record<string, string> = {
+  "the-bronx": "new-york-navy",
+  "queens": "new-york-blue",
+  "chicago-south-side": "chicago-black",
+  "chicago-north-side": "chicago-blue",
+  "nba-the-bay": "nba-san-francisco",
+  "nba-inglewood": "nba-los-angeles-red",
+  "nba-los-angeles": "nba-los-angeles-gold",
+  "nfl-new-york-afc": "nfl-new-york-green",
+  "nfl-new-york-nfc": "nfl-new-york-blue",
+  "nfl-los-angeles-afc": "nfl-los-angeles-light-blue",
+  "nfl-los-angeles-nfc": "nfl-los-angeles-blue",
+};
+
+export function getTeam(slug: string): Team | undefined {
+  const s = OLD_SLUGS[slug] ?? slug;
+  return TEAMS.find((t) => t.slug === s);
+}
+
+export function teamsByDivision(division: Division): Team[] {
+  return TEAMS.filter((t) => t.division === division).sort((a, b) => a.market.localeCompare(b.market));
+}
+
+export function divisionName(division: Division): string {
+  return DIVISIONS.find((d) => d.id === division)!.label;
+}
+
+export function leagueOf(id: League) {
+  return LEAGUES.find((l) => l.id === id)!;
+}
+
+// The city in normal case for sentences: "ST. LOUIS" -> "St. Louis".
+export function cityName(t: Team): string {
+  if (t.edition) return `${t.market} ${t.edition}`;
+  return t.city.replace(/[A-Z][A-Z.']*/g, (w) => w[0] + w.slice(1).toLowerCase());
+}
+
+// Card and page eyebrow: NBA division names need the league to read clearly.
+export function teamLabel(t: Team): string {
+  const d = divisionName(t.division);
+  const label = t.league === "nba" ? `NBA ${d}` : d;
+  return t.edition ? `${label} · ${cityName(t)}` : label;
+}
