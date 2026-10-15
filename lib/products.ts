@@ -45,7 +45,7 @@ export function isStyle(s: unknown): s is Style {
 // The styles a team's shirt comes in: SELL, SELL with the city, and the hoodie
 // (plus the NEPO PHIL tees for Cincinnati).
 export function stylesFor(team: Team): Style[] {
-  if (team.edition) return ["tee"];
+  if (team.edition) return team.alternateOf ? ["tee", "hoodie"] : ["tee"];
   return ["tee", "city", ...(team.nepo ? NEPO_STYLES : []), "hoodie"];
 }
 
@@ -74,6 +74,31 @@ export function garment(style: Style): string {
 
 export function colorHex(team: Team, style: Style): string {
   return COLORS[STYLE[style].blank][colorName(team, style)]?.hex ?? "#222222";
+}
+
+export function printColorName(team: Team, style: Style): string {
+  if (team.alternateOf) {
+    const original = getTeam(team.alternateOf);
+    if (original) return colorName(original, style);
+  }
+  if (style === "tee") {
+    if (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") return "black";
+    if (team.slug === "nfl-cleveland") return "orange";
+    if (team.slug === "nfl-baltimore") return "metallic gold";
+  }
+  return "white";
+}
+
+export function printColorHex(team: Team, style: Style): string {
+  if (team.alternateOf) {
+    const original = getTeam(team.alternateOf);
+    if (original) return colorHex(original, style);
+  }
+  const name = printColorName(team, style);
+  if (name === "black") return "#000000";
+  if (name === "orange") return "#FF3C00";
+  if (name === "metallic gold") return "#C5A253";
+  return STYLE[style].ink;
 }
 
 export function sizesFor(team: Team, style: Style): Size[] {

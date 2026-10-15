@@ -93,14 +93,17 @@ for (const style of styles.length ? styles : Object.keys(STYLES)) {
   const { product, color, only = () => true, files, out, view = "front", perTeam = false } = STYLES[style];
   const dir = new URL(`../public/mockups/${out}`, import.meta.url);
   mkdirSync(dir, { recursive: true });
-  const byColor = Map.groupBy(TEAMS.filter((t) => only(t) && (!slugs.size || slugs.has(t.slug))), perTeam ? (t) => t.slug : color);
+  const byColor = Map.groupBy(
+    TEAMS.filter((t) => only(t) && (!slugs.size || slugs.has(t.slug))),
+    (t) => (perTeam || t.alternateOf) ? t.slug : color(t),
+  );
   const photo = (t) => new URL(`${t.slug}.png`, dir);
   for (const [name, all] of byColor) {
     let teams = all;
     if (args.includes("--missing")) {
       teams = all.filter((t) => !existsSync(photo(t)));
       if (!teams.length) continue;
-      const donor = perTeam ? null : TEAMS.find((t) => only(t) && color(t) === name && existsSync(photo(t)));
+      const donor = perTeam || teams[0].alternateOf ? null : TEAMS.find((t) => only(t) && color(t) === name && existsSync(photo(t)));
       if (donor) {
         for (const t of teams) copyFileSync(photo(donor), photo(t));
         console.log(`${style} ${name}: copied from ${donor.slug} to ${teams.map((t) => t.slug).join(", ")}`);

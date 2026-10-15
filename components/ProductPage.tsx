@@ -10,6 +10,8 @@ import {
   garment,
   productName,
   productPath,
+  printColorHex,
+  printColorName,
   sizesFor,
   STYLE,
   stylesFor,
@@ -33,9 +35,6 @@ const DETAILS: Record<Style, string[]> = {
   nepo: [TEE, "NEPO PHIL over SELL in white on red", "Direct-to-garment print, front only"],
   "nepo-jersey": [TEE, "SELL on the chest; NEPO PHIL and 00 across the back", "Direct-to-garment print, front and back"],
   "nepo-sign": [TEE, "NEPO PHIL: SELL! in red marker lettering on natural", "Direct-to-garment print, front only"],
-};
-const PRINT_COLOR: Record<Style, string> = {
-  tee: "white", city: "white", hoodie: "white", nepo: "white", "nepo-jersey": "white", "nepo-sign": "red",
 };
 const WHY: Partial<Record<Style, string>> = {
   city: "One word in white on your team\u2019s color, with your city underneath.",
@@ -73,8 +72,8 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
   const related = [...sameCity, ...TEAMS.filter((t) => t.division === team.division && t.market !== team.market)].slice(0, 4);
   if (!stylesFor(team).includes(style)) notFound();
   const noun = STYLE[style].label.toLowerCase();
-  const printColor = (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "black" : (team.slug === "nfl-cleveland" || team.slug === "nfl-cincinnati-alternate-one") && style === "tee" ? "orange" : team.slug === "nfl-baltimore" && style === "tee" ? "metallic gold" : PRINT_COLOR[style];
-  const printInk = printColor === "black" ? "#000000" : printColor === "orange" ? "#FF3C00" : printColor === "metallic gold" ? "#C5A253" : STYLE[style].ink;
+  const printColor = printColorName(team, style);
+  const printInk = printColorHex(team, style);
 
   return (
     <div className="wrap">
@@ -112,7 +111,7 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
               <summary>Why SELL</summary>
               <div className="content">
                 Modeled on the shirt Oakland fans wore to the 2023 reverse boycott.{" "}
-                {WHY[style] ?? ((team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "One word in black on your team color." : team.slug === "nfl-cleveland" && style === "tee" ? "One word in orange on Browns brown." : team.slug === "nfl-cincinnati-alternate-one" && style === "tee" ? "One word in orange on black." : team.slug === "nfl-baltimore" && style === "tee" ? "One word in metallic gold on Ravens purple." : "One word in white on your team colors.")} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
+                {WHY[style] ?? (team.alternateOf ? `One word in ${printColor} on ${colorLabel(team, style)}.` : (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "One word in black on your team color." : team.slug === "nfl-cleveland" && style === "tee" ? "One word in orange on Browns brown." : team.slug === "nfl-baltimore" && style === "tee" ? "One word in metallic gold on Ravens purple." : "One word in white on your team colors.")} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
                 seen from the owner&rsquo;s suite. <Link href="/story" style={{ textDecoration: "underline" }}>Read the story.</Link>
               </div>
             </details>

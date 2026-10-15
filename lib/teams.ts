@@ -33,6 +33,7 @@ export type Team = {
   hoodie: string;
   nepo: boolean; // also sold as the NEPO PHIL tees
   edition?: string;
+  alternateOf?: string;
 };
 
 const NEPO = new Set(["cincinnati"]);
@@ -145,7 +146,6 @@ const ROWS: Row[] = [
   // AFC North
   ["nfl-baltimore", "afc-north", "Baltimore", "Ravens", "BALTIMORE", "Team Purple", "Purple"],
   ["nfl-cincinnati", "afc-north", "Cincinnati", "Bengals", "CINCINNATI", "Orange", "Orange"],
-  ["nfl-cincinnati-alternate-one", "afc-north", "Cincinnati", "Bengals Alternate One", "CINCINNATI", "Black", "Black", "Alternate One"],
   ["nfl-cleveland", "afc-north", "Cleveland", "Browns", "CLEVELAND", "Brown", "Dark Chocolate"],
   ["nfl-pittsburgh", "afc-north", "Pittsburgh", "Steelers", "PITTSBURGH", "Gold", "Gold"],
   // AFC South
@@ -180,7 +180,7 @@ const ROWS: Row[] = [
   ["nfl-seattle", "nfc-west", "Seattle", "Seahawks", "SEATTLE", "Navy", "Navy"],
 ];
 
-export const TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, shirt, hoodie, edition]) => ({
+const BASE_TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, shirt, hoodie, edition]) => ({
   slug,
   league: DIVISIONS.find((d) => d.id === division)!.league,
   division,
@@ -192,6 +192,30 @@ export const TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, 
   nepo: NEPO.has(slug),
   edition,
 }));
+
+// Alternate One reverses the blank and ink colors of each NFL original.
+// Most originals use white ink; the AFC North originals retain their chosen
+// black, orange, and metallic-gold print colors.
+const ALTERNATE_TEE_BLANK: Record<string, string> = {
+  "nfl-baltimore": "Gold",
+  "nfl-cincinnati": "Black",
+  "nfl-cleveland": "Orange",
+  "nfl-pittsburgh": "Black",
+};
+
+export const TEAMS: Team[] = [
+  ...BASE_TEAMS,
+  ...BASE_TEAMS.filter((team) => team.league === "nfl").map((team) => ({
+    ...team,
+    slug: `${team.slug}-alternate-one`,
+    nickname: `${team.nickname} Alternate One`,
+    shirt: ALTERNATE_TEE_BLANK[team.slug] ?? "White",
+    hoodie: "White",
+    nepo: false,
+    edition: "Alternate One",
+    alternateOf: team.slug,
+  })),
+];
 
 export const FEATURED_SLUG = "oakland";
 
