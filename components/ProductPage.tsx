@@ -73,7 +73,7 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
   const related = [...sameCity, ...TEAMS.filter((t) => t.division === team.division && t.market !== team.market)].slice(0, 4);
   if (!stylesFor(team).includes(style)) notFound();
   const noun = STYLE[style].label.toLowerCase();
-  const printColor = (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "black" : team.slug === "nfl-cleveland" && style === "tee" ? "orange" : team.slug === "nfl-baltimore" && style === "tee" ? "metallic gold" : PRINT_COLOR[style];
+  const printColor = (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "black" : (team.slug === "nfl-cleveland" || team.slug === "nfl-cincinnati-alternate-one") && style === "tee" ? "orange" : team.slug === "nfl-baltimore" && style === "tee" ? "metallic gold" : PRINT_COLOR[style];
   const printInk = printColor === "black" ? "#000000" : printColor === "orange" ? "#FF3C00" : printColor === "metallic gold" ? "#C5A253" : STYLE[style].ink;
 
   return (
@@ -112,46 +112,4 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
               <summary>Why SELL</summary>
               <div className="content">
                 Modeled on the shirt Oakland fans wore to the 2023 reverse boycott.{" "}
-                {WHY[style] ?? ((team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "One word in black on your team color." : team.slug === "nfl-cleveland" && style === "tee" ? "One word in orange on Browns brown." : team.slug === "nfl-baltimore" && style === "tee" ? "One word in metallic gold on Ravens purple." : "One word in white on your team colors.")} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
-                seen from the owner&rsquo;s suite. <Link href="/story" style={{ textDecoration: "underline" }}>Read the story.</Link>
-              </div>
-            </details>
-            <details>
-              <summary>Details</summary>
-              <div className="content">
-                <ul>
-                  {DETAILS[style].map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                  <li>{style.startsWith("nepo") ? "No team names or logos" : <>No team names or logos &mdash; just SELL</>}</li>
-                  <li>Imported</li>
-                </ul>
-              </div>
-            </details>
-            <details>
-              <summary>Shipping &amp; returns</summary>
-              <div className="content">
-                Printed to order and usually shipped within 2&ndash;5 business days, then 3&ndash;7 days in transit
-                (US). Free shipping to the US and Canada. Because each {noun} is made for you, we can&rsquo;t take back
-                the wrong size, but misprints, defects and shipping damage are covered by our 30-day{" "}
-                <Link href="/terms#warranty" style={{ textDecoration: "underline" }}>Limited Warranty</Link>.
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-      {related.length > 0 && (
-        <section style={{ paddingBottom: 80 }}>
-          <div className="section-head">
-            <h2 className="display">{sameCity.length ? `More for ${team.market}` : `More from the ${teamLabel(team)}`}</h2>
-          </div>
-          <div className="grid">
-            {related.map((t) => (
-              <ProductCard key={t.slug} team={t} style={style === "hoodie" ? "hoodie" : "tee"} />
-            ))}
-          </div>
-        </section>
-      )}
-    </div>
-  );
-}
+                {WHY[style] ?? ((team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "One word in black on your team color." : team.slug === "nfl-cleveland" && style === "tee" ? "One word in orange on Browns brown." : team.slug === "nfl-cincinnati-alterna

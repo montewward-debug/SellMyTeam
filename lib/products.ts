@@ -45,6 +45,7 @@ export function isStyle(s: unknown): s is Style {
 // The styles a team's shirt comes in: SELL, SELL with the city, and the hoodie
 // (plus the NEPO PHIL tees for Cincinnati).
 export function stylesFor(team: Team): Style[] {
+  if (team.edition) return ["tee"];
   return ["tee", "city", ...(team.nepo ? NEPO_STYLES : []), "hoodie"];
 }
 
@@ -86,37 +87,4 @@ export function priceFor(style: Style, size: Size): number {
 }
 
 export function printfulVariantId(team: Team, style: Style, size: Size): number | undefined {
-  return COLORS[STYLE[style].blank][colorName(team, style)]?.variants[size];
-}
-
-export function formatPrice(cents: number): string {
-  return `$${(cents / 100).toFixed(2).replace(/\.00$/, "")}`;
-}
-
-// Only "SELL" and the city line: never a team name or nickname.
-export function productName(team: Team, style: Style): string {
-  return `${STYLE[style].name ?? `SELL ${STYLE[style].label}`} — ${team.city}`;
-}
-
-export function productPath(team: Team, style: Style): string {
-  return `/${STYLE[style].path}/${team.slug}`;
-}
-
-// Printful's flat-lay photo of the printed blank (scripts/generate-mockups.mjs).
-export function mockupPath(team: Team, style: Style): string {
-  return `/mockups/${style === "tee" ? "" : `${style}/`}${team.slug}.png?v=${ART_VERSION}`;
-}
-
-// Carts saved before hoodies existed have no style: those lines are tees.
-export type CartLine = { slug: string; style?: Style; size: Size; qty: number };
-
-// Validates a client-supplied cart line against the catalog.
-export function resolveLine(line: CartLine) {
-  const team = getTeam(line.slug);
-  const style = line.style ?? "tee";
-  if (!team || !isStyle(style)) return null;
-  if (!sizesFor(team, style).includes(line.size)) return null;
-  const qty = Math.floor(Number(line.qty));
-  if (!Number.isFinite(qty) || qty < 1 || qty > 20) return null;
-  return { team, style, size: line.size, qty, unit: priceFor(style, line.size) };
-}
+  return COLORS[STYLE[style].blank][colorName(team, style)]?.variants[size]
