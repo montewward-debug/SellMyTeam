@@ -198,6 +198,7 @@ const BASE_TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, sh
 // black, orange, and metallic-gold print colors.
 const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-baltimore": "Gold",
+  "nfl-buffalo": "Red",
   "nfl-cincinnati": "Black",
   "nfl-cleveland": "Orange",
   "nfl-pittsburgh": "Black",
