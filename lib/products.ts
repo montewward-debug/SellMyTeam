@@ -102,11 +102,11 @@ export function printColorHex(team: Team, style: Style): string {
       return colorHex(original, style);
     }
   }
+  if (team.slug === "nfl-miami" && style === "tee") return "#FF6F00";
   const name = printColorName(team, style);
   if (name === "red") return "#d0071e";
   if (name === "orange") return "#FF3C00";
   if (name === "black") return "#000000";
-  if (name === "orange") return "#FF3C00";
   if (name === "metallic gold") return "#C5A253";
   return STYLE[style].ink;
 }
