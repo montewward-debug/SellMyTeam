@@ -157,7 +157,7 @@ const ROWS: Row[] = [
   ["nfl-denver", "afc-west", "Denver", "Broncos", "DENVER", "Orange", "Orange"],
   ["nfl-kansas-city", "afc-west", "Kansas City", "Chiefs", "KANSAS CITY", "Red", "Red"],
   ["nfl-las-vegas", "afc-west", "Las Vegas", "Raiders", "LAS VEGAS", "Black", "Black"],
-  ["nfl-los-angeles-light-blue", "afc-west", "Los Angeles", "Chargers Bolts", "LOS ANGELES", "Heather Columbia Blue", "Carolina Blue"],
+  ["nfl-los-angeles-light-blue", "afc-west", "Los Angeles", "Chargers Bolts", "LOS ANGELES", "Baby Blue", "Carolina Blue"],
   // NFC East
   ["nfl-dallas", "nfc-east", "Dallas", "Cowboys", "DALLAS", "Navy", "Navy"],
   ["nfl-new-york-blue", "nfc-east", "New York", "Giants", "NEW YORK", "True Royal", "Royal"],
@@ -204,6 +204,9 @@ const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-houston": "Red",
   "nfl-jacksonville": "Black",
   "nfl-tennessee": "Steel Blue",
+  "nfl-denver": "Navy",
+  "nfl-las-vegas": "Silver",
+  "nfl-los-angeles-light-blue": "Gold",
   "nfl-miami": "Orange",
   "nfl-new-england": "Red",
   "nfl-new-york-green": "Kelly",
