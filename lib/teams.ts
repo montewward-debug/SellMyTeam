@@ -203,11 +203,11 @@ const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-cleveland": "Orange",
   "nfl-miami": "Orange",
   "nfl-new-england": "Red",
-  "nfl-new-york-green": "Forest",
+  "nfl-new-york-green": "Kelly",
   "nfl-pittsburgh": "Black",
 };
 const ALTERNATE_HOODIE_BLANK: Record<string, string> = {
-  "nfl-new-york-green": "Forest Green",
+  "nfl-new-york-green": "Irish Green",
 };
 
 export const TEAMS: Team[] = [
