@@ -77,6 +77,7 @@ export function colorHex(team: Team, style: Style): string {
 }
 
 export function printColorName(team: Team, style: Style): string {
+  if (team.slug === "nfl-new-york-green-alternate-one") return "Gotham Green";
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
@@ -97,6 +98,7 @@ export function printColorName(team: Team, style: Style): string {
 }
 
 export function printColorHex(team: Team, style: Style): string {
+  if (team.slug === "nfl-new-york-green-alternate-one") return "#125740";
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
