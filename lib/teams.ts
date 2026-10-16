@@ -197,7 +197,7 @@ const BASE_TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, sh
 // Most originals use white ink; the AFC North originals retain their chosen
 // black, orange, and metallic-gold print colors. New England uses Nautical Blue.
 const ALTERNATE_TEE_BLANK: Record<string, string> = {
-  "nfl-baltimore": "Gold",
+  "nfl-baltimore": "Black",
   "nfl-buffalo": "Red",
   "nfl-cincinnati": "Black",
   "nfl-cleveland": "Orange",
