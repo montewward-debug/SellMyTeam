@@ -76,9 +76,19 @@ export function colorHex(team: Team, style: Style): string {
   return COLORS[STYLE[style].blank][colorName(team, style)]?.hex ?? "#222222";
 }
 
+const TEE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
+  "nfl-houston": { name: "battle red", hex: "#C8102E" },
+  "nfl-houston-alternate-one": { name: "deep steel blue", hex: "#03202F" },
+  "nfl-jacksonville": { name: "gold", hex: "#C5A253" },
+  "nfl-jacksonville-alternate-one": { name: "gold", hex: "#C5A253" },
+  "nfl-tennessee": { name: "red", hex: "#D0071E" },
+  "nfl-tennessee-alternate-one": { name: "dark pink", hex: "#C2185B" },
+};
+
 export function printColorName(team: Team, style: Style): string {
   if (team.slug === "nfl-new-york-green-alternate-one") return "pink";
   if (team.slug === "nfl-baltimore-alternate-one" && style === "tee") return "metallic gold";
+  if (style === "tee" && TEE_PRINT_OVERRIDES[team.slug]) return TEE_PRINT_OVERRIDES[team.slug].name;
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
@@ -101,6 +111,7 @@ export function printColorName(team: Team, style: Style): string {
 export function printColorHex(team: Team, style: Style): string {
   if (team.slug === "nfl-new-york-green-alternate-one") return "#FF1493";
   if (team.slug === "nfl-baltimore-alternate-one" && style === "tee") return "#C5A253";
+  if (style === "tee" && TEE_PRINT_OVERRIDES[team.slug]) return TEE_PRINT_OVERRIDES[team.slug].hex;
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
