@@ -195,13 +195,14 @@ const BASE_TEAMS: Team[] = ROWS.map(([slug, division, market, nickname, city, sh
 
 // Alternate One reverses the blank and ink colors of each NFL original.
 // Most originals use white ink; the AFC North originals retain their chosen
-// black, orange, and metallic-gold print colors.
+// black, orange, and metallic-gold print colors. New England uses Nautical Blue.
 const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-baltimore": "Gold",
   "nfl-buffalo": "Red",
   "nfl-cincinnati": "Black",
   "nfl-cleveland": "Orange",
   "nfl-miami": "Orange",
+  "nfl-new-england": "Red",
   "nfl-pittsburgh": "Black",
 };
 

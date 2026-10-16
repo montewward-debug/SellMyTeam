@@ -81,12 +81,14 @@ export function printColorName(team: Team, style: Style): string {
     const original = getTeam(team.alternateOf);
     if (original) {
       if (team.slug === "nfl-miami-alternate-one" && style === "tee") return "Teal";
+      if (team.slug === "nfl-new-england-alternate-one" && style === "tee") return "Nautical Blue";
       return colorName(original, style);
     }
   }
   if (style === "tee") {
     if (team.slug === "nfl-buffalo") return "red";
     if (team.slug === "nfl-miami") return "orange";
+    if (team.slug === "nfl-new-england") return "bright red";
     if (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") return "black";
     if (team.slug === "nfl-cleveland") return "orange";
     if (team.slug === "nfl-baltimore") return "metallic gold";
@@ -99,11 +101,13 @@ export function printColorHex(team: Team, style: Style): string {
     const original = getTeam(team.alternateOf);
     if (original) {
       if (team.slug === "nfl-miami-alternate-one" && style === "tee") return COLORS.tee.Teal.hex;
+      if (team.slug === "nfl-new-england-alternate-one" && style === "tee") return "#1B5091";
       return colorHex(original, style);
     }
   }
   if (team.slug === "nfl-miami" && style === "tee") return "#FF6F00";
   const name = printColorName(team, style);
+  if (name === "bright red") return "#FF0000";
   if (name === "red") return "#d0071e";
   if (name === "orange") return "#FF3C00";
   if (name === "black") return "#000000";
