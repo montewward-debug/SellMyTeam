@@ -22,8 +22,7 @@ import { cityName, divisionName, getTeam, leagueOf, teamLabel, TEAMS, type Team 
 
 const TEE = "Bella+Canvas 3001 unisex tee, 100% combed ring-spun cotton";
 
-// Per style: what's printed (details list), the print's color name, and the
-// "Why SELL" line.
+// Per style: what's printed in the product details list.
 const DETAILS: Record<Style, string[]> = {
   tee: [TEE, "Soft, lightweight 4.2 oz jersey; retail fit", "Direct-to-garment print, front only"],
   city: [TEE, "SELL with the team's city underneath", "Direct-to-garment print, front only"],
@@ -36,13 +35,6 @@ const DETAILS: Record<Style, string[]> = {
   "nepo-jersey": [TEE, "SELL on the chest; NEPO PHIL and 00 across the back", "Direct-to-garment print, front and back"],
   "nepo-sign": [TEE, "NEPO PHIL: SELL! in red marker lettering on natural", "Direct-to-garment print, front only"],
 };
-const WHY: Partial<Record<Style, string>> = {
-  city: "One word in white on your team\u2019s color, with your city underneath.",
-  nepo: "His name, then the one word.",
-  "nepo-jersey": "His name across the back, like a jersey.",
-  "nepo-sign": "Marker lettering, like the sign you'd hold up behind home plate.",
-};
-
 const SHARE_TEXT: Partial<Record<Style, (t: Team) => string>> = {
   city: (t) => `A ${colorLabel(t, "city")} shirt with SELL and ${cityName(t)} across the chest. Wear it to the game until they sell the team. Free shipping.`,
   nepo: () => "A red shirt that says NEPO PHIL over SELL. Wear it to the game. Free shipping.",
@@ -110,9 +102,13 @@ export default function ProductPage({ slug, style }: { slug: string; style: Styl
             <details open>
               <summary>Why SELL</summary>
               <div className="content">
-                Modeled on the shirt Oakland fans wore to the 2023 reverse boycott.{" "}
-                {WHY[style] ?? (team.alternateOf ? `One word in ${printColor} on ${colorLabel(team, style)}.` : team.slug === "nfl-buffalo" && style === "tee" ? "One word in red on royal blue." : team.slug === "nfl-miami" && style === "tee" ? "One word in orange on aqua." : team.slug === "nfl-new-england" && style === "tee" ? "One word in bright red on Patriots navy." : (team.slug === "nfl-cincinnati" || team.slug === "nfl-pittsburgh") && style === "tee" ? "One word in black on your team color." : team.slug === "nfl-cleveland" && style === "tee" ? "One word in orange on Browns brown." : team.slug === "nfl-baltimore" && style === "tee" ? "One word in metallic gold on Ravens purple." : "One word in white on your team colors.")} It says what a lot of {team.market} fans are thinking &mdash; loud enough to be
-                seen from the owner&rsquo;s suite. <Link href="/story" style={{ textDecoration: "underline" }}>Read the story.</Link>
+                Incoming; I am personally writing these one at a time. The owner of your community&apos;s team definitely blows.
+              </div>
+            </details>
+            <details>
+              <summary>Why to Buy This Thing</summary>
+              <div className="content">
+                Wear the message, show where your community stands, and help bring fans together.
               </div>
             </details>
             <details>
