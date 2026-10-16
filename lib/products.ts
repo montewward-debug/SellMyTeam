@@ -77,7 +77,7 @@ export function colorHex(team: Team, style: Style): string {
 }
 
 export function printColorName(team: Team, style: Style): string {
-  if (team.slug === "nfl-new-york-green-alternate-one") return "Gotham Green";
+  if (team.slug === "nfl-new-york-green-alternate-one") return "white";
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
@@ -98,7 +98,7 @@ export function printColorName(team: Team, style: Style): string {
 }
 
 export function printColorHex(team: Team, style: Style): string {
-  if (team.slug === "nfl-new-york-green-alternate-one") return "#125740";
+  if (team.slug === "nfl-new-york-green-alternate-one") return "#FFFFFF";
   if (team.alternateOf) {
     const original = getTeam(team.alternateOf);
     if (original) {
@@ -146,7 +146,8 @@ export function productPath(team: Team, style: Style): string {
 
 // Printful's flat-lay photo of the printed blank (scripts/generate-mockups.mjs).
 export function mockupPath(team: Team, style: Style): string {
-  return `/mockups/${style === "tee" ? "" : `${style}/`}${team.slug}.png?v=${ART_VERSION}`;
+  const slug = team.slug === "nfl-new-york-green-alternate-one" ? "nfl-green-bay" : team.slug;
+  return `/mockups/${style === "tee" ? "" : `${style}/`}${slug}.png?v=${ART_VERSION}`;
 }
 
 // Carts saved before hoodies existed have no style: those lines are tees.
@@ -162,3 +163,4 @@ export function resolveLine(line: CartLine) {
   if (!Number.isFinite(qty) || qty < 1 || qty > 20) return null;
   return { team, style, size: line.size, qty, unit: priceFor(style, line.size) };
 }
+

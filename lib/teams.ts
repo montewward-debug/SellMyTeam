@@ -203,7 +203,11 @@ const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-cleveland": "Orange",
   "nfl-miami": "Orange",
   "nfl-new-england": "Red",
+  "nfl-new-york-green": "Forest",
   "nfl-pittsburgh": "Black",
+};
+const ALTERNATE_HOODIE_BLANK: Record<string, string> = {
+  "nfl-new-york-green": "Forest Green",
 };
 
 export const TEAMS: Team[] = [
@@ -213,7 +217,7 @@ export const TEAMS: Team[] = [
     slug: `${team.slug}-alternate-one`,
     nickname: `${team.nickname} Alternate One`,
     shirt: ALTERNATE_TEE_BLANK[team.slug] ?? "White",
-    hoodie: "White",
+    hoodie: ALTERNATE_HOODIE_BLANK[team.slug] ?? "White",
     nepo: false,
     edition: "Alternate One",
     alternateOf: team.slug,
@@ -267,3 +271,4 @@ export function teamLabel(t: Team): string {
   const label = t.league === "nba" ? `NBA ${d}` : d;
   return t.edition ? `${label} · ${cityName(t)}` : label;
 }
+
