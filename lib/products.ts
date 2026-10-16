@@ -87,7 +87,7 @@ const TEE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
   "nfl-kansas-city": { name: "gold", hex: "#C5A253" },
   "nfl-las-vegas-alternate-one": { name: "black", hex: "#000000" },
   "nfl-los-angeles-light-blue": { name: "gold", hex: "#C5A253" },
-  "nfl-los-angeles-light-blue-alternate-one": { name: "navy blue", hex: "#212642" },
+  "nfl-los-angeles-light-blue-alternate-one": { name: "royal blue", hex: "#01408D" },
 };
 
 export function printColorName(team: Team, style: Style): string {
