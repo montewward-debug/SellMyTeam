@@ -162,7 +162,7 @@ const ROWS: Row[] = [
   ["nfl-dallas", "nfc-east", "Dallas", "Cowboys", "DALLAS", "Navy", "Navy"],
   ["nfl-new-york-blue", "nfc-east", "New York", "Giants", "NEW YORK", "True Royal", "Royal"],
   ["nfl-philadelphia", "nfc-east", "Philadelphia", "Eagles", "PHILADELPHIA", "Forest", "Forest Green"],
-  ["nfl-washington", "nfc-east", "Washington", "Commanders", "WASHINGTON", "Maroon", "Maroon"],
+  ["nfl-washington", "nfc-east", "Washington", "Commanders", "WASHINGTON", "Gold", "Maroon"],
   // NFC North
   ["nfl-chicago", "nfc-north", "Chicago", "Bears", "CHICAGO", "Navy", "Navy"],
   ["nfl-detroit", "nfc-north", "Detroit", "Lions", "DETROIT", "Aqua", "Royal"],
