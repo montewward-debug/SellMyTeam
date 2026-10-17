@@ -77,6 +77,12 @@ export function colorHex(team: Team, style: Style): string {
 }
 
 const TEE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
+  "nfl-los-angeles-blue": { name: "gold", hex: "#C5A253" },
+  "nfl-los-angeles-blue-alternate-one": { name: "gold", hex: "#C5A253" },
+  "nfl-san-francisco": { name: "gold", hex: "#C5A253" },
+  "nfl-san-francisco-alternate-one": { name: "red", hex: "#D0071E" },
+  "nfl-seattle": { name: "action green", hex: "#00A651" },
+  "nfl-seattle-alternate-one": { name: "college blue", hex: "#0072CE" },
   "nfl-atlanta": { name: "black", hex: "#000000" },
   "nfl-carolina": { name: "black", hex: "#000000" },
   "nfl-carolina-alternate-one": { name: "process blue", hex: "#0085CA" },
