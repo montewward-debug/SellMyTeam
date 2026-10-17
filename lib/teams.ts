@@ -200,7 +200,9 @@ const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-baltimore": "Black",
   "nfl-buffalo": "Red",
   "nfl-cincinnati": "Black",
+  "nfl-chicago": "Orange",
   "nfl-dallas": "Navy",
+  "nfl-green-bay": "Gold",
   "nfl-cleveland": "Orange",
   "nfl-houston": "Red",
   "nfl-jacksonville": "Black",
@@ -212,6 +214,7 @@ const ALTERNATE_TEE_BLANK: Record<string, string> = {
   "nfl-new-england": "Red",
   "nfl-new-york-green": "Kelly",
   "nfl-pittsburgh": "Black",
+  "nfl-minnesota": "Team Purple",
   "nfl-philadelphia": "Forest",
 };
 const ALTERNATE_HOODIE_BLANK: Record<string, string> = {
