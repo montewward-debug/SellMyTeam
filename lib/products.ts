@@ -45,6 +45,7 @@ export function isStyle(s: unknown): s is Style {
 // The styles a team's shirt comes in: SELL, SELL with the city, and the hoodie
 // (plus the NEPO PHIL tees for Cincinnati).
 export function stylesFor(team: Team): Style[] {
+  if (team.slug === "nfl-los-angeles-blue-alternate-one") return ["tee"];
   if (team.edition) return team.alternateOf ? ["tee", "hoodie"] : ["tee"];
   return ["tee", "city", ...(team.nepo ? NEPO_STYLES : []), "hoodie"];
 }
@@ -67,15 +68,21 @@ const NFL_HOODIE_COLOR_OVERRIDES: Record<string, string> = {
   "nfl-miami": "Indigo Blue",
   "nfl-new-england": "Red",
   "nfl-houston": "Navy",
-  "nfl-tennessee": "Light Blue",
-  "nfl-tennessee-alternate-one": "Light Blue",
+  "nfl-tennessee": "Carolina Blue",
+  "nfl-tennessee-alternate-one": "Carolina Blue",
   "nfl-denver": "Royal",
+  "nfl-denver-alternate-one": "Royal",
+  "nfl-seattle": "Royal",
+  "nfl-tampa-bay": "Gold",
+  "nfl-carolina": "Carolina Blue",
+  "nfl-washington": "Maroon",
   "nfl-dallas": "Royal",
   "nfl-dallas-alternate-one": "Silver",
   "nfl-new-york-blue-alternate-one": "Royal",
 };
 const NFL_HOODIE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
   "nfl-kansas-city": { name: "white", hex: "#FFFFFF" },
+  "nfl-denver": { name: "royal blue", hex: "#1D50A4" },
   "nfl-dallas-alternate-one": { name: "navy blue", hex: "#212642" },
   "nfl-new-york-blue-alternate-one": { name: "red", hex: "#D0071E" },
 };
