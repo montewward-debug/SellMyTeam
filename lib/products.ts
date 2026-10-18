@@ -63,11 +63,27 @@ const NFL_HOODIE_COLOR_EQUIVALENTS: Record<string, string> = {
   Tan: "Sand",
   Cardinal: "Maroon",
 };
+const NFL_HOODIE_COLOR_OVERRIDES: Record<string, string> = {
+  "nfl-miami": "Indigo Blue",
+  "nfl-new-england": "Red",
+  "nfl-houston": "Navy",
+  "nfl-tennessee": "Light Blue",
+  "nfl-tennessee-alternate-one": "Light Blue",
+  "nfl-denver": "Royal",
+  "nfl-dallas": "Royal",
+  "nfl-dallas-alternate-one": "Silver",
+  "nfl-new-york-blue-alternate-one": "Royal",
+};
+const NFL_HOODIE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
+  "nfl-kansas-city": { name: "white", hex: "#FFFFFF" },
+  "nfl-dallas-alternate-one": { name: "navy blue", hex: "#212642" },
+  "nfl-new-york-blue-alternate-one": { name: "red", hex: "#D0071E" },
+};
 
 export function colorName(team: Team, style: Style): string {
   if (STYLE[style].color) return STYLE[style].color!;
   if (style === "hoodie" && team.league === "nfl") {
-    return NFL_HOODIE_COLOR_EQUIVALENTS[team.shirt] ?? team.shirt;
+    return NFL_HOODIE_COLOR_OVERRIDES[team.slug] ?? NFL_HOODIE_COLOR_EQUIVALENTS[team.shirt] ?? team.shirt;
   }
   return style === "hoodie" ? team.hoodie : team.shirt;
 }
