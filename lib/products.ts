@@ -50,8 +50,26 @@ export function stylesFor(team: Team): Style[] {
 }
 
 // Printful color name of this team's blank in this style.
+const NFL_HOODIE_COLOR_EQUIVALENTS: Record<string, string> = {
+  "True Royal": "Royal",
+  Aqua: "Indigo Blue",
+  Kelly: "Irish Green",
+  "Team Purple": "Purple",
+  Brown: "Dark Chocolate",
+  "Steel Blue": "Sport Grey",
+  Silver: "Ash",
+  "Heather Columbia Blue": "Carolina Blue",
+  Forest: "Forest Green",
+  Tan: "Sand",
+  Cardinal: "Maroon",
+};
+
 export function colorName(team: Team, style: Style): string {
-  return STYLE[style].color ?? (style === "hoodie" ? team.hoodie : team.shirt);
+  if (STYLE[style].color) return STYLE[style].color!;
+  if (style === "hoodie" && team.league === "nfl") {
+    return NFL_HOODIE_COLOR_EQUIVALENTS[team.shirt] ?? team.shirt;
+  }
+  return style === "hoodie" ? team.hoodie : team.shirt;
 }
 
 // Everyday names for Printful's color names, for anything customers read.
@@ -111,6 +129,7 @@ const TEE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
 };
 
 export function printColorName(team: Team, style: Style): string {
+  if (style === "hoodie" && team.league === "nfl") return printColorName(team, "tee");
   if (team.slug === "nfl-new-york-green-alternate-one") return "pink";
   if (team.slug === "nfl-baltimore-alternate-one" && style === "tee") return "metallic gold";
   if (style === "tee" && TEE_PRINT_OVERRIDES[team.slug]) return TEE_PRINT_OVERRIDES[team.slug].name;
@@ -134,6 +153,7 @@ export function printColorName(team: Team, style: Style): string {
 }
 
 export function printColorHex(team: Team, style: Style): string {
+  if (style === "hoodie" && team.league === "nfl") return printColorHex(team, "tee");
   if (team.slug === "nfl-new-york-green-alternate-one") return "#FF1493";
   if (team.slug === "nfl-baltimore-alternate-one" && style === "tee") return "#C5A253";
   if (style === "tee" && TEE_PRINT_OVERRIDES[team.slug]) return TEE_PRINT_OVERRIDES[team.slug].hex;
