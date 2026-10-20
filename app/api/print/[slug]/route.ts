@@ -7,5 +7,6 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   const slug = (await params).slug.replace(/\.png$/, "");
   const team = getTeam(slug);
   if (!team) return new Response("Not found", { status: 404 });
-  return printFile("tee", undefined, printColorHex(team, "tee"));
+  const color = team.slug === "new-york-navy" ? "pinstripe" : printColorHex(team, "tee");
+  return printFile("tee", undefined, color);
 }
