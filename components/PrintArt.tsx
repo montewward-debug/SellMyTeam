@@ -33,6 +33,7 @@ export function wordSize(width: number): number {
 }
 
 function line(size: number, track: number, color: string) {
+  const pinstripes = color === "pinstripe";
   return {
     fontFamily: SHIRT_FONT,
     fontWeight: 600,
@@ -41,7 +42,15 @@ function line(size: number, track: number, color: string) {
     letterSpacing: track * size,
     // Satori also tracks after the last letter; cancel it so the ink stays centered.
     marginRight: -track * size,
-    color,
+    color: pinstripes ? "transparent" : color,
+    ...(pinstripes
+      ? {
+          backgroundImage: "repeating-linear-gradient(90deg, #FFFFFF 0px 12px, #212642 12px 16px)",
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }
+      : {}),
   };
 }
 
