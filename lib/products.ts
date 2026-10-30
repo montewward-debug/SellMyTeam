@@ -151,7 +151,8 @@ const TEE_PRINT_OVERRIDES: Record<string, { name: string; hex: string }> = {
   "nfl-los-angeles-light-blue-alternate-one": { name: "royal blue", hex: "#01408D" },
   baltimore: { name: "black", hex: "#000000" },
   boston: { name: "navy blue", hex: "#212642" },
-  "tampa-bay": { name: "yellow", hex: "#FFD667" },
+  "tampa-bay": { name: "gold", hex: "#C5A253" },
+  toronto: { name: "red", hex: "#D0071E" },
   "new-york-navy": { name: "navy pinstripes", hex: "#FFFFFF" },
 };
 
