@@ -1,7 +1,8 @@
 // Makes Printful flat-lay photos of every product with the Mockup Generator:
 // the tee (Bella+Canvas 3001), city tee and hoodie (Gildan 18500) in each team
 // color and the Cincinnati specials, saved to public/mockups/[<style>/]<slug>.png.
-// Tee mockups share a render across teams in the same shirt color.
+// Teams share a render only when both the shirt color and the print file match,
+// so a team with its own ink (Toronto's red SELL on True Royal) gets its own photo.
 //
 //   node --env-file=.env.local scripts/generate-mockups.mjs [style ...] [team-slug ...] [--missing] [--options]
 //
@@ -12,6 +13,7 @@
 // serving this code's print files (Printful downloads them itself). Needs Node
 // 23.6+ because it imports lib/teams.ts directly. Bump ART_VERSION in
 // lib/art.ts after regenerating.
+import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { TEAMS } from "../lib/teams.ts";
 
@@ -93,17 +95,36 @@ for (const style of styles.length ? styles : Object.keys(STYLES)) {
   const { product, color, only = () => true, files, out, view = "front", perTeam = false } = STYLES[style];
   const dir = new URL(`../public/mockups/${out}`, import.meta.url);
   mkdirSync(dir, { recursive: true });
-  const byColor = Map.groupBy(
-    TEAMS.filter((t) => only(t) && (!slugs.size || slugs.has(t.slug))),
-    (t) => (perTeam || t.alternateOf) ? t.slug : color(t),
-  );
+  // The live print file decides the ink, so two teams on one shirt color with
+  // different ink never share a photo.
+  const keys = new Map();
+  const groupKey = async (t) => {
+    if (perTeam || t.alternateOf) return t.slug;
+    if (!keys.has(t.slug)) {
+      const res = await fetch(`${base}/${files(t.slug)[0].path}?v=${Date.now()}`);
+      if (!res.ok) throw new Error(`${files(t.slug)[0].path} ${res.status}`);
+      const print = createHash("sha1").update(Buffer.from(await res.arrayBuffer())).digest("hex");
+      keys.set(t.slug, `${color(t)} ${print.slice(0, 7)}`);
+    }
+    return keys.get(t.slug);
+  };
+  const byColor = new Map();
+  for (const t of TEAMS.filter((t) => only(t) && (!slugs.size || slugs.has(t.slug)))) {
+    const k = await groupKey(t);
+    byColor.set(k, [...(byColor.get(k) ?? []), t]);
+  }
   const photo = (t) => new URL(`${t.slug}.png`, dir);
   for (const [name, all] of byColor) {
     let teams = all;
     if (args.includes("--missing")) {
       teams = all.filter((t) => !existsSync(photo(t)));
       if (!teams.length) continue;
-      const donor = perTeam || teams[0].alternateOf ? null : TEAMS.find((t) => only(t) && color(t) === name && existsSync(photo(t)));
+      let donor = null;
+      if (!perTeam && !teams[0].alternateOf) {
+        for (const t of TEAMS) {
+          if (only(t) && color(t) === color(teams[0]) && existsSync(photo(t)) && (await groupKey(t)) === name) { donor = t; break; }
+        }
+      }
       if (donor) {
         for (const t of teams) copyFileSync(photo(donor), photo(t));
         console.log(`${style} ${name}: copied from ${donor.slug} to ${teams.map((t) => t.slug).join(", ")}`);
